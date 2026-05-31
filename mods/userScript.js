@@ -1,5 +1,5 @@
 /**
- * MiruroTV - Simple wrapper to access miruro.to on Samsung TV
+ * MiruroTV - Simple wrapper to access miruro.bz on Samsung TV
  * Adds TV remote navigation support only
  */
 
@@ -7,6 +7,12 @@
 import './spatial-navigation-polyfill.js';
 
 console.log('MiruroTV loaded - initializing spatial navigation...');
+
+function applyPageZoom() {
+  if (!document.body) return;
+  document.body.style.zoom = '150%';
+  document.body.style.transformOrigin = '0 0';
+}
 
 const KEY = {
   ENTER: 13,
@@ -234,6 +240,7 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+applyPageZoom();
 registerExtraKeys();
 window.addEventListener('keydown', handleFakeMouseKeys, true);
 window.addEventListener('resize', () => {
@@ -291,6 +298,7 @@ setTimeout(() => {
 // Also try on page load in case we're early
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    applyPageZoom();
     setTimeout(initSpatialNav, 500);
   });
 }

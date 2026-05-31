@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "TizenBrew module for Miruro on Samsung TVs with TV remote navigation",
   "packageType": "mods",
-  "websiteURL": "https://miruro.to",
+  "websiteURL": "https://www.miruro.bz/",
   "main": "dist/userScript.js",
   "serviceFile": "dist/service.js",
   "author": "Hitesh",
