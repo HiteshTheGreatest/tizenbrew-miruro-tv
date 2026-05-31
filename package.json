@@ -1,13 +1,17 @@
 {
   "name": "tizenbrew-miruro-tv",
   "appName": "MiruroTV",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TizenBrew module for Miruro on Samsung TVs with TV remote navigation",
   "packageType": "mods",
   "websiteURL": "https://www.miruro.bz/",
   "main": "dist/userScript.js",
   "serviceFile": "dist/service.js",
   "author": "Hitesh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HiteshTheGreatest/tizenbrew-miruro-tv.git"
+  },
   "keys": [
     "MediaPlayPause",
     "MediaPlay",
