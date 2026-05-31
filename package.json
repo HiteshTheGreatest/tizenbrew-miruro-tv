@@ -1,0 +1,52 @@
+{
+  "name": "tizenbrew-miruro-tv",
+  "version": "0.1.0",
+  "description": "TizenBrew site-mod controls for Miruro.tv TV remote navigation and fake mouse input.",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "packageType": "mods",
+  "appName": "Miruro TV",
+  "websiteURL": "https://miruro.tv/",
+  "main": "dist/index.js",
+  "serviceFile": "dist/service.js",
+  "keys": [
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "Enter",
+    "Back",
+    "MediaPlay",
+    "MediaPause",
+    "MediaPlayPause",
+    "MediaRewind",
+    "MediaFastForward",
+    "ColorF0Red"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "service",
+    "README.md",
+    "build.mjs"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch"
+  },
+  "keywords": [
+    "tizenbrew",
+    "tizen",
+    "samsung-tv",
+    "miruro",
+    "remote-control",
+    "site-mod"
+  ],
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
