@@ -13,5 +13,3 @@ Thumbs.db
 mods/node_modules/
 service/node_modules/
 mods/package-lock.json
-.agents/
-.codex/

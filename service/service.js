@@ -1,8 +1,9 @@
 /**
- * Minimal TizenBrew service entry.
- *
- * The site-mod script does all UI/navigation work in the Miruro page.
- * Keeping a service file matches common TizenBrew package shape without
- * adding background behavior.
+ * MiruroTV Background Service
+ * Minimal service - no special background tasks needed
  */
-console.log('Miruro TV service started');
+
+console.log('MiruroTV service started');
+
+// This file can remain mostly empty since we're just opening a website
+// No need for special server functionality

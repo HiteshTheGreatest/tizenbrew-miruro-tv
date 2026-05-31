@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../service/service.js"],
-  "sourcesContent": ["/**\n * Minimal TizenBrew service entry.\n *\n * The site-mod script does all UI/navigation work in the Miruro page.\n * Keeping a service file matches common TizenBrew package shape without\n * adding background behavior.\n */\nconsole.log('Miruro TV service started');\n"],
-  "mappings": ";;;AAOA,UAAQ,IAAI,2BAA2B;",
-  "names": []
-}
