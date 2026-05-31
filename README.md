@@ -4,7 +4,8 @@ Access Miruro on your Samsung Tizen TV. This is a simple TizenBrew site-mod wrap
 
 ## What it does
 
-- Opens `https://miruro.to` in a browser on your Samsung TV
+- Opens `https://www.miruro.bz/` in a browser on your Samsung TV
+- Applies 150% page zoom for TV viewing
 - Enables TV remote navigation (arrow keys to browse)
 - Adds visible focus indicators so you can see where you are
 - Adds an optional fake mouse mode for controls that spatial navigation cannot reach
@@ -27,7 +28,7 @@ Access Miruro on your Samsung Tizen TV. This is a simple TizenBrew site-mod wrap
 
 ## That's it!
 
-No stream scraping, provider changes, or Miruro backend modifications - just miruro.to accessible on your TV.
+No stream scraping, provider changes, or Miruro backend modifications - just Miruro accessible on your TV.
 
 ## Development Setup
 

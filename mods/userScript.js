@@ -1,5 +1,5 @@
 /**
- * MiruroTV - Simple wrapper to access miruro.to on Samsung TV
+ * MiruroTV - Simple wrapper to access miruro.bz on Samsung TV
  * Adds TV remote navigation support only
  */
 
@@ -7,6 +7,12 @@
 import './spatial-navigation-polyfill.js';
 
 console.log('MiruroTV loaded - initializing spatial navigation...');
+
+function applyPageZoom() {
+  if (!document.body) return;
+  document.body.style.zoom = '150%';
+  document.body.style.transformOrigin = '0 0';
+}
 
 const KEY = {
   ENTER: 13,
@@ -25,6 +31,31 @@ let cursorY = Math.round(window.innerHeight / 2);
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
+}
+
+function isTextEditable(element) {
+  if (!element) return false;
+  const tagName = element.tagName;
+  return element.isContentEditable ||
+    tagName === 'INPUT' ||
+    tagName === 'TEXTAREA' ||
+    tagName === 'SELECT';
+}
+
+function focusForTvKeyboard(element) {
+  if (!element) return;
+
+  const editable = isTextEditable(element) ?
+    element :
+    element.closest && element.closest('input, textarea, select, [contenteditable="true"]');
+
+  if (!editable) return;
+
+  try {
+    editable.focus();
+  } catch (error) {
+    console.warn('Unable to focus editable target', error);
+  }
 }
 
 function registerExtraKeys() {
@@ -113,6 +144,8 @@ function clickCursorTarget() {
   const target = document.elementFromPoint(cursorX, cursorY);
   if (!target) return;
 
+  focusForTvKeyboard(target);
+
   ['mousedown', 'mouseup', 'click'].forEach(type => {
     const event = new MouseEvent(type, {
       bubbles: true,
@@ -124,6 +157,26 @@ function clickCursorTarget() {
     });
     target.dispatchEvent(event);
   });
+
+  focusForTvKeyboard(target);
+}
+
+function navigateWithRemote(keyCode) {
+  if (isTextEditable(document.activeElement)) return false;
+  if (typeof window.navigate !== 'function') return false;
+
+  const direction = {
+    [KEY.LEFT]: 'left',
+    [KEY.RIGHT]: 'right',
+    [KEY.UP]: 'up',
+    [KEY.DOWN]: 'down'
+  }[keyCode];
+
+  if (!direction) return false;
+
+  makeFocusable();
+  window.navigate(direction);
+  return true;
 }
 
 function handleFakeMouseKeys(event) {
@@ -154,6 +207,20 @@ function handleFakeMouseKeys(event) {
 
   if (keyCode === KEY.BACK) {
     setMouseMode(false);
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+}
+
+function handleRemoteFallbackKeys(event) {
+  if (mouseMode) return;
+
+  const keyCode = event.keyCode;
+  if (keyCode !== KEY.LEFT && keyCode !== KEY.RIGHT && keyCode !== KEY.UP && keyCode !== KEY.DOWN) {
+    return;
+  }
+
+  if (navigateWithRemote(keyCode)) {
     event.preventDefault();
     event.stopImmediatePropagation();
   }
@@ -234,8 +301,10 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+applyPageZoom();
 registerExtraKeys();
 window.addEventListener('keydown', handleFakeMouseKeys, true);
+window.addEventListener('keydown', handleRemoteFallbackKeys, false);
 window.addEventListener('resize', () => {
   cursorX = clamp(cursorX, 0, window.innerWidth - 1);
   cursorY = clamp(cursorY, 0, window.innerHeight - 1);
@@ -291,6 +360,7 @@ setTimeout(() => {
 // Also try on page load in case we're early
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    applyPageZoom();
     setTimeout(initSpatialNav, 500);
   });
 }
